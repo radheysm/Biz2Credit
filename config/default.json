@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://radhey:wSLO0UV8mwLbeQWW@cluster0.duort.mongodb.net/Biz2Credit?retryWrites=true&w=majority",
+  "jwtToken": "mysecrettoken"
+}
