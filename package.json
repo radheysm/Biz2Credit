@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix clinet",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,8 @@
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "reactstrap": "^8.6.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
