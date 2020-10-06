@@ -99,4 +99,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfiles })(Dashboard);
+export default connect(mapStateToProps, { getProfiles, deleteProfile })(
+  Dashboard
+);
