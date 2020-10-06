@@ -11,10 +11,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: '',
     email: '',
     password: '',
+    phone: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, phone, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +25,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert('Password do not match', 'danger');
     } else {
-      register({ name, email, password });
+      register({ name, email, phone, password });
       //    const newUser = {
       //        name,
       //        email,
@@ -71,6 +72,16 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder='Email Address'
             name='email'
             value={email}
+            onChange={(e) => onChange(e)}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Phone Number'
+            name='phone'
+            value={phone}
             onChange={(e) => onChange(e)}
             required
           />

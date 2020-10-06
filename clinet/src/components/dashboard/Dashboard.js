@@ -40,46 +40,50 @@ const Dashboard = ({
           </Link>
         </div>
       </div>
-      {profiles.map((item) => (
-        <div
-          style={{
-            display: 'block',
-            border: '1px solid black',
-            width: '240px',
-          }}
-        >
-          <span>Name:</span>
-          <br></br>
-          <h3>{item.name}</h3>
+      {profiles.map((item) =>
+        item.user === user._id ? (
+          <div
+            style={{
+              display: 'block',
+              border: '1px solid black',
+              width: '240px',
+            }}
+          >
+            <span>Name:</span>
+            <br></br>
+            <h3>{item.name}</h3>
 
-          <span>Email:</span>
-          <br></br>
-          <h3>{item.email}</h3>
+            <span>Email:</span>
+            <br></br>
+            <h3>{item.email}</h3>
 
-          <span>Phone:</span>
-          <br></br>
-          <h3>{item.phone}</h3>
-          <div style={{ display: 'flex' }}>
-            <div>
-              <Link
-                to='/edit-profile'
-                className='btn btn-primary my-1'
-                style={{ margin: '5px' }}
-              >
-                Edit
-              </Link>
-            </div>
-            <div style={{ marginTop: '6px' }}>
-              <Button
-                onClick={() => deleteProfile(item._id)}
-                className='bg-danger'
-              >
-                Delete
-              </Button>
+            <span>Phone:</span>
+            <br></br>
+            <h3>{item.phone}</h3>
+            <div style={{ display: 'flex' }}>
+              <div>
+                <Link
+                  to='/edit-profile'
+                  className='btn btn-primary my-1'
+                  style={{ margin: '5px' }}
+                >
+                  Edit
+                </Link>
+              </div>
+              <div style={{ marginTop: '6px' }}>
+                <Button
+                  onClick={() => deleteProfile(item._id)}
+                  className='bg-danger'
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ) : (
+          ''
+        )
+      )}
     </Fragment>
   );
 };
