@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
-import { getProfiles, deleteProfile } from '../../actions/profile';
+import {
+  getProfiles,
+  deleteProfile,
+  editProfileID,
+} from '../../actions/profile';
 
 const Dashboard = ({
   getProfiles,
@@ -15,7 +19,9 @@ const Dashboard = ({
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
-  console.log(profiles);
+  const handleEditProfile = async (id) => {
+    await editProfileID(id);
+  };
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -66,6 +72,7 @@ const Dashboard = ({
                   to='/edit-profile'
                   className='btn btn-primary my-1'
                   style={{ margin: '5px' }}
+                  onClick={() => handleEditProfile(item._id)}
                 >
                   Edit
                 </Link>
@@ -93,12 +100,15 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   deleteProfile: PropTypes.func.isRequired,
+  editProfileID: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfiles, deleteProfile })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  getProfiles,
+  deleteProfile,
+  editProfileID,
+})(Dashboard);

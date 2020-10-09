@@ -8,13 +8,14 @@ import {
   DELETE_ACCOUNT,
   CLEAR_PROFILE,
   GET_PROFILES,
+  EDIT_PROFILE_ID,
 } from './types';
 
 // Get Current users profile
 
-export const getCurrentProfile = () => async (dispatch) => {
+export const getCurrentProfile = (id) => async (dispatch) => {
   try {
-    const res = await axios.get('/api/v1/profile/me');
+    const res = await axios.get(`/api/v1/profile/${id}`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -77,7 +78,7 @@ export const createProfile = (formData, history, edit = false) => async (
     // const body = JSON.stringify(formData);
     const res = await axios.post('/api/v1/profile', formData, config);
     dispatch({
-      type: GET_PROFILE,
+      type: UPDATE_PROFILE,
       payload: res.data,
     });
     // console.log("Hello");
@@ -100,10 +101,10 @@ export const createProfile = (formData, history, edit = false) => async (
 
 // Delete account & profile
 
-export const deleteProfile = () => async (dispatch) => {
+export const deleteProfile = (id) => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone!!')) {
     try {
-      await axios.delete('/api/v1/profile');
+      await axios.delete(`/api/v1/profile/${id}`);
       dispatch({
         type: CLEAR_PROFILE,
       });
@@ -117,5 +118,18 @@ export const deleteProfile = () => async (dispatch) => {
         payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
+  }
+};
+
+export const editProfileID = (id) => async (dispatch) => {
+  console.log(id);
+  try {
+    const res = id;
+    dispatch({
+      type: EDIT_PROFILE_ID,
+      payload: res,
+    });
+  } catch (err) {
+    console.log(err.message);
   }
 };

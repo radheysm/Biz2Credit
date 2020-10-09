@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 const EditProfile = ({
-  profile: { profile, loading },
+  profile: { profile, loading, editProfileId },
   createProfile,
   getCurrentProfile,
   history,
@@ -16,12 +16,12 @@ const EditProfile = ({
     password: '',
   });
   useEffect(() => {
-    getCurrentProfile();
+    getCurrentProfile(editProfileId);
     setFormData({
-      name: loading || !profile.name ? '' : profile.name,
-      email: loading || !profile.email ? '' : profile.email,
-      phone: loading || !profile.phone ? '' : profile.phone,
-      password: loading || !profile.password ? '' : profile.password,
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
     });
   }, [loading, getCurrentProfile]);
   const { name, email, phone, password } = formData;
@@ -30,11 +30,11 @@ const EditProfile = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    createProfile(formData, history);
   };
   return (
     <Fragment>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='large text-primary'>Edit/Add New User</h1>
       <small>* = required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>

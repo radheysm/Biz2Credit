@@ -4,13 +4,14 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
+  EDIT_PROFILE_ID,
 } from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   loading: true,
+  editProfileId: null,
   error: {},
 };
 
@@ -32,7 +33,7 @@ export default function (state = initialState, action) {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload,
+        profiles: [payload, ...state.profiles],
         loading: false,
       };
     case PROFILE_ERROR:
@@ -45,7 +46,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: null,
-        repos: [],
+        loading: false,
+      };
+    case EDIT_PROFILE_ID:
+      return {
+        ...state,
+        editProfileId: payload,
         loading: false,
       };
     default:

@@ -24,8 +24,22 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// @route   Post api/v1/profile;
+// @route   GET api/v1/profile;
 // @desc    Get users
+// @access  Public
+
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const profiles = await Profile.findById(req.params.id);
+    res.json(profiles);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   Post api/v1/profile;
+// @desc    Add users
 // @access  Public
 
 router.post(
@@ -62,27 +76,15 @@ router.post(
     if (phone) profileFields.phone = phone;
     if (password) profileFields.password = password;
     try {
-      let profile = await Profile.findOne({ user: user.id });
-      if (profile) {
-        profile = await Profile.findOneAndUpdate(
-          { user: user.id },
-          { $set: profileFields },
-          { new: true }
-        );
-        return res.json(profile);
-      }
-      // const user = await User.findById(req.user.id).select('-password');
-      // const { name, email, phone, password } = req.body;
-      // console.log(user.id);
-      // const newProfile = new Profile({
-      //   name: req.body.name,
-      //   email: req.body.email,
-      //   phone: req.body.phone,
-      //   password: req.body.password,
-      //   user: user.id,
-      // });
-      // newProfile.save().then((profile) => res.json(profile));
-      //Create
+      // let profile = await Profile.findOne({ user: user.id });
+      // if (profile) {
+      //   profile = await Profile.findOneAndUpdate(
+      //     { user: user.id },
+      //     { $set: profileFields },
+      //     { new: true }
+      //   );
+      //   return res.json(profile);
+      // }
       profile = new Profile(profileFields);
       await profile.save();
       return res.json(profile);
